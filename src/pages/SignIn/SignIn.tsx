@@ -1,5 +1,5 @@
 import { useCallback, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FormCheckbox, FormField, Header, Message } from "semantic-ui-react";
 import { Form, Input, SubmitButton } from 'formik-semantic-ui-react'
 import { MyContext } from "../../contexts/auth";
@@ -15,14 +15,8 @@ export default function SignIn() {
     email: '',
     password: '',
   };
-  const navigate = useNavigate();
   const { handleSignIn, formLoading } = useContext(MyContext);
   const [errorMsg, setErrorMsg] = useState("");
-
-  const onSignUpClick = useCallback(
-    () => navigate('/auth/sign-up'),
-    [navigate],
-  );
 
   const handleSubmit = useCallback(async (values: FormValues, { resetForm }: { resetForm: () => void }) => {
     setErrorMsg("");
@@ -54,7 +48,7 @@ export default function SignIn() {
             <FormCheckbox label='Remember Me' />
           </FormField>
           <SubmitButton primary fluid loading={false}>SIGN IN</SubmitButton>
-          <p className="mt-6 text-center">Don't have an account? <span className="text-primary font-bold cursor-pointer" onClick={onSignUpClick}>Sign Up</span></p>
+          <p className="mt-6 text-center">Don't have an account? <Link to={'/auth/sign-up'} className="text-primary font-bold cursor-pointer">Sign Up</Link></p>
         </Form>
       </Formik>
     </div >

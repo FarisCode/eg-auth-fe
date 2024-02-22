@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { MyContext } from "../../contexts/auth";
 import { useContext, useEffect } from "react";
 import Lottie from "react-lottie";
@@ -6,10 +6,13 @@ import Lottie from "react-lottie";
 export default function Auth() {
   const { isAuthenticated } = useContext(MyContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/');
+    } else if (location.pathname === "/auth") {
+      navigate('/auth/sign-in');
     }
   }, [isAuthenticated, navigate]);
 

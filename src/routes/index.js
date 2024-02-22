@@ -21,7 +21,7 @@ const routes = [
       {
         path: "sign-up",
         element: <SignUp />,
-      },
+      }
     ],
   },
 ];
