@@ -7,7 +7,6 @@ const getToken = () => localStorage.getItem('x-token');
 const MyContextProvider = ({ children }: { children: React.ReactNode }) => {
 
   const [isAuthenticated, setIsAuthenticated] = useState<null | true | false>(null);
-  const [user, setUser] = useState<any>(null);
   const [formLoading, setFormLoading] = useState<any>(false);
 
   useEffect(() => {
@@ -22,20 +21,17 @@ const MyContextProvider = ({ children }: { children: React.ReactNode }) => {
       }).then((res) => {
         if (res.status === 200) {
           setIsAuthenticated(true);
-          const { name, email } = res.data;
-          setUser({ name, email })
         }
       }).catch((err) => {
         setIsAuthenticated(false);
         localStorage.removeItem('x-token');
       })
     }
-  }, [setIsAuthenticated, setUser]);
+  }, [setIsAuthenticated]);
 
   const handleSignOut = () => {
     localStorage.removeItem('x-token');
     setIsAuthenticated(false);
-    setUser(null);
   }
 
   const handleSignIn = async (data: any) => {
@@ -46,7 +42,6 @@ const MyContextProvider = ({ children }: { children: React.ReactNode }) => {
         const { token } = res.data;
         localStorage.setItem('x-token', token);
         setIsAuthenticated(true);
-        setUser(res.data.user);
         setFormLoading(false);
       }
       return res;
@@ -64,7 +59,6 @@ const MyContextProvider = ({ children }: { children: React.ReactNode }) => {
         const { token } = res.data;
         localStorage.setItem('x-token', token);
         setIsAuthenticated(true);
-        setUser(res.data.user);
         setFormLoading(false);
       }
       return res;
@@ -76,7 +70,7 @@ const MyContextProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <MyContext.Provider value={{ isAuthenticated, user, handleSignOut, handleSignIn, formLoading, handleSignUp }}>
+    <MyContext.Provider value={{ isAuthenticated, handleSignOut, handleSignIn, formLoading, handleSignUp }}>
       {children}
     </MyContext.Provider>
   );

@@ -14,7 +14,7 @@ export default function Auth() {
     } else if (location.pathname === "/auth") {
       navigate('/auth/sign-in');
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, navigate, location.pathname]);
 
   return (
     <div className="flex w-full h-screen">

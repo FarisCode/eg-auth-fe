@@ -46,6 +46,8 @@ export default function SignUp() {
       setErrorMsg(response.message);
       setFieldValue('password', '');
       setFieldValue('confirmPassword', '');
+    } else {
+      setErrorMsg("Something went wrong! Please try again later");
     }
   }, [handleSignUp]);
 

@@ -25,6 +25,8 @@ export default function SignIn() {
     if (response.statusCode === 401) {
       setErrorMsg(response.message);
       resetForm();
+    } else {
+      setErrorMsg("Something went wrong! Please try again later");
     }
   }, [handleSignIn]);
 
